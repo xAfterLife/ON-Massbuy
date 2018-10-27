@@ -44,7 +44,7 @@ public void Buy(OpenNos.GameObject.CommandPackets.BuyPacket buypacket)
                             }
                             else
                             {
-                                Session.SendPacket(Session.Character.GenerateSay($"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {iteminfo.Name} x {255}", 12));
+                                Session.SendPacket(Session.Character.GenerateSay($"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {iteminfo.Name} x {STACK_LIMIT}", 12));
                                 Session.Character.Gold -= STACK_LIMIT * inv.Item.Price;
                             }
                         }
