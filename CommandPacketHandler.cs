@@ -1,5 +1,5 @@
-const int BUY_LIMIT = 999
-const int STACK_LIMIT = 999
+const int BUY_LIMIT = 12000
+const int STACK_LIMIT = 255
 
 /// <summary>
 /// $Buy Packet
