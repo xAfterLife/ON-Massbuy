@@ -1,4 +1,7 @@
-﻿/// <summary>
+const int BUY_LIMIT = 999
+const int STACK_LIMIT = 999
+
+/// <summary>
 /// $Buy Packet
 /// </summary>
 /// <param name="BuyPacket"></param>
@@ -8,13 +11,13 @@ public void Buy(OpenNos.GameObject.CommandPackets.BuyPacket buypacket)
     {
         if (buypacket != null)
         {
-            if (buypacket.Amount <= 1020)
+            if (buypacket.Amount <= BUY_LIMIT)
             {
                 if (buypacket.Item != null && buypacket.Amount != 0)
                 {
 
-                    int Leftover = buypacket.Amount % 255;
-                    int FulLStacks = buypacket.Amount / 255;
+                    int Leftover = buypacket.Amount % STACK_LIMIT;
+                    int FulLStacks = buypacket.Amount / STACK_LIMIT;
                     short BuyVNum = 0;
 
                     switch (buypacket.Item.ToUpper())
@@ -34,7 +37,7 @@ public void Buy(OpenNos.GameObject.CommandPackets.BuyPacket buypacket)
                     {
                         for (int i = 1; i <= FulLStacks; i++)
                         {
-                            ItemInstance inv = Session.Character.Inventory.AddNewToInventory(BuyVNum, 255).FirstOrDefault();
+                            ItemInstance inv = Session.Character.Inventory.AddNewToInventory(BuyVNum, STACK_LIMIT).FirstOrDefault();
                             if (inv == null)
                             {
                                 Session.SendPacket(UserInterfaceHelper.Instance.GenerateMsg(Language.Instance.GetMessageFromKey("NOT_ENOUGH_PLACE"), 0));
@@ -42,7 +45,7 @@ public void Buy(OpenNos.GameObject.CommandPackets.BuyPacket buypacket)
                             else
                             {
                                 Session.SendPacket(Session.Character.GenerateSay($"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {iteminfo.Name} x {255}", 12));
-                                Session.Character.Gold -= 255 * inv.Item.Price;
+                                Session.Character.Gold -= STACK_LIMIT * inv.Item.Price;
                             }
                         }
 
